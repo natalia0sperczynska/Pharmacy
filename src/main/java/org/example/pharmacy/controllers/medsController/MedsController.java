@@ -43,7 +43,7 @@ public class MedsController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id) {
+    public ResponseEntity<Void> delete(@Validated @PathVariable long id) {
         if (medsService.getOne(id) != null) {
             medsService.delete(id);
             return ResponseEntity.accepted().build();

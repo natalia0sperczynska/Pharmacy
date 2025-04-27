@@ -47,6 +47,9 @@ public class AuthService {
 
         AuthEntity authEntity = new AuthEntity();
         authEntity.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+        if(registerDTO.getUsername().length()<6){
+            throw UsernameTooShortException.create(registerDTO.getUsername());
+        }
         authEntity.setUsername(registerDTO.getUsername());
         validateRole(registerDTO.getRole());
         authEntity.setRole(registerDTO.getRole());

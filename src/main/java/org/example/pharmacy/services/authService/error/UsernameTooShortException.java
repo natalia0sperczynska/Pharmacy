@@ -7,8 +7,9 @@ public class UsernameTooShortException extends RuntimeException{
     private UsernameTooShortException (String message){
         super(message);
     }
-    private static ResponseStatusException create(String username){
+
+    public static ResponseStatusException create(String username){
         UsernameTooShortException exception = new UsernameTooShortException(String.format("%s username is too short. Minimum 5 characters",username));
-        return new ResponseStatusException(HttpStatus.LENGTH_REQUIRED);
+        return new ResponseStatusException(HttpStatus.LENGTH_REQUIRED,exception.getMessage(),exception);
     }
 }

@@ -36,7 +36,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginDTO requestBody){
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginDTO requestBody){
        LoginResponseDTO loginResponseDTO= authService.login(requestBody);
        return new ResponseEntity<>(loginResponseDTO,HttpStatus.CREATED);
     }
