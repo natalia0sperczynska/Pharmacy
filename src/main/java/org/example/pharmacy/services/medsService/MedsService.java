@@ -4,6 +4,7 @@ import org.example.pharmacy.controllers.DTO.medDTO.AddMedResponseDTO;
 import org.example.pharmacy.controllers.DTO.medDTO.GetMedDTO;
 import org.example.pharmacy.persistance.entities.MedEntity;
 import org.example.pharmacy.persistance.repository.MedsRepository;
+import org.example.pharmacy.services.purchaseService.error.MedNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class MedsService {
         return meds.stream().map((med) -> new GetMedDTO(med.getId(), med.getBarcode(), med.getName(), med.getDose(), med.getCompany_name(), med.getPrice(), med.getForm(), med.getExpiry_date(), med.getQuantity())).collect(Collectors.toList());
     }
     public GetMedDTO getOne(long id) {
-        var med = medsRepository.findById(id).orElseThrow(() -> new RuntimeException("Med not found"));
+        var med = medsRepository.findById(id).orElseThrow(() -> MedNotFoundException.create(id));
         return new GetMedDTO(med.getId(), med.getBarcode(), med.getName(), med.getDose(), med.getCompany_name(), med.getPrice(), med.getForm(), med.getExpiry_date(), med.getQuantity());
     }
     public AddMedResponseDTO create(AddMedDTO med) {

@@ -16,10 +16,6 @@ public class PurchaseEntity {
    @Basic
    private Date purchaseDate;
 
-//    @Column(name = "payment_method",nullable = false)
-//    @Enumerated(EnumType.STRING)
-//    private PaymentMethods paymentMethod;
-
     @Column(name = "payment_method",nullable = false)
     @Enumerated(EnumType.STRING)
     private PaymentMethods paymentMethod;
