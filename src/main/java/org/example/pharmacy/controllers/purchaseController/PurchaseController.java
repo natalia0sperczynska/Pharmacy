@@ -38,6 +38,7 @@ public class PurchaseController {
 
     @GetMapping()
     public ResponseEntity<List<GetPurchaseResponseDTO>> getAll(@RequestBody @Validated AddPurchaseDTO purchase) {
+        //all for specific, user all all for admin
         List<GetPurchaseResponseDTO> purchases = purchaseService.getAllPurchases();
         return new ResponseEntity<>(purchases, HttpStatus.OK);
     }

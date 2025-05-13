@@ -21,10 +21,13 @@ public class MedsService {
     }
     public List<GetMedDTO> getAll() {
         var meds = medsRepository.findAll();
-        return meds.stream().map((med) -> new GetMedDTO(med.getId(), med.getBarcode(), med.getName(), med.getDose(), med.getCompany_name(), med.getPrice(), med.getForm(), med.getExpiry_date(), med.getQuantity())).collect(Collectors.toList());
+        return meds.stream().map(this::getMedDTO).collect(Collectors.toList());
     }
     public GetMedDTO getOne(long id) {
         var med = medsRepository.findById(id).orElseThrow(() -> MedNotFoundException.create(id));
+        return  getMedDTO(med);
+    }
+    private GetMedDTO getMedDTO(MedEntity med){
         return new GetMedDTO(med.getId(), med.getBarcode(), med.getName(), med.getDose(), med.getCompany_name(), med.getPrice(), med.getForm(), med.getExpiry_date(), med.getQuantity());
     }
     public AddMedResponseDTO create(AddMedDTO med) {
@@ -44,6 +47,7 @@ public class MedsService {
 
        return new AddMedResponseDTO(newMed.getId(),newMed.getBarcode(), newMed.getName(), newMed.getDose(), newMed.getCompany_name(), newMed.getPrice(), newMed.getForm(), newMed.getExpiry_date(), newMed.getQuantity());
     }
+
 
     public void delete(long id) {
 //        if(!medsRepository.existsById(id)){
