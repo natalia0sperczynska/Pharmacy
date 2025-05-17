@@ -8,14 +8,17 @@ import org.example.pharmacy.controllers.DTO.userDTO.GetUserDTO;
 import org.example.pharmacy.persistance.entities.MedEntity;
 import org.example.pharmacy.persistance.entities.PurchaseEntity;
 import org.example.pharmacy.persistance.entities.UserEntity;
+import org.example.pharmacy.persistance.repository.AuthRepository;
 import org.example.pharmacy.persistance.repository.MedsRepository;
 import org.example.pharmacy.persistance.repository.PurchaseRepository;
 import org.example.pharmacy.persistance.repository.UserRepository;
+import org.example.pharmacy.security.OwnershipService;
 import org.example.pharmacy.services.medsService.error.MedNotFound;
 import org.example.pharmacy.services.purchaseService.error.MedNotFoundException;
 import org.example.pharmacy.services.purchaseService.error.PurchaseNotFoundException;
 import org.example.pharmacy.services.purchaseService.error.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -24,17 +27,19 @@ import java.util.stream.Collectors;
 
 
 @Service
-public class PurchaseService {
+public class PurchaseService extends OwnershipService {
     private final PurchaseRepository purchaseRepository;
     private final MedsRepository medsRepository;
     private final UserRepository userRepository;
 
     @Autowired
-    public PurchaseService(PurchaseRepository purchaseRepository, MedsRepository medsRepository, UserRepository userRepository) {
+    public PurchaseService(PurchaseRepository purchaseRepository, MedsRepository medsRepository, UserRepository userRepository, AuthRepository authRepository) {
+        super(authRepository);
         this.purchaseRepository = purchaseRepository;
         this.medsRepository = medsRepository;
         this.userRepository = userRepository;
     }
+    @PreAuthorize("hasRole('ADMIN') or isAuthenticated() and this.isOwner(authentication.name,#addPurchaseDTO.userId)")
     public AddPurchaseResponseDTO create(AddPurchaseDTO addPurchaseDTO) {
 
         UserEntity user = userRepository.findById(addPurchaseDTO.getUserId()).orElseThrow(() -> UserNotFoundException.create(addPurchaseDTO.getUserId()));

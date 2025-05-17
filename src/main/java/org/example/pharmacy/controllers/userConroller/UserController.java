@@ -1,8 +1,6 @@
 package org.example.pharmacy.controllers.userConroller;
 
-import org.example.pharmacy.controllers.DTO.userDTO.CreateUserResponseDTO;
-import org.example.pharmacy.controllers.DTO.userDTO.GetUserDTO;
-import org.example.pharmacy.controllers.DTO.userDTO.UserResponseDTO;
+import org.example.pharmacy.controllers.DTO.userDTO.*;
 import org.example.pharmacy.services.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +44,12 @@ public class UserController {
     public ResponseEntity<GetUserDTO> getMe(Principal principal){
         GetUserDTO getUserDTO = userService.getUserByUsername(principal.getName());
         return ResponseEntity.ok(getUserDTO);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<PatchResponseUserDTO> update(@PathVariable long id,@RequestBody PatchUserDTO patchUserDTO){
+        PatchResponseUserDTO responseDTO=userService.updateUser(id, patchUserDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
 
