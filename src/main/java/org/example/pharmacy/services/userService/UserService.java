@@ -46,11 +46,12 @@ public class UserService extends OwnershipService {
     public PatchResponseUserDTO updateUser(long id, PatchUserDTO  patchUserDTO){
         UserEntity user = userRepository.findById(id).orElseThrow(()-> UserNotFoundException.create(id));
 
-        user.setName(patchUserDTO.getName());
-        user.setLastName(patchUserDTO.getLastName());
-        user.setEmail(patchUserDTO.getEmail());
+            patchUserDTO.getName().ifPresent(user::setName);
+            patchUserDTO.getLastName().ifPresent(user::setLastName);
+            patchUserDTO.getEmail().ifPresent(user::setEmail);
+
         userRepository.save(user);
-        return new PatchResponseUserDTO(user.getId(), user.getName(),user.getLastName(),user.getEmail(),user.getPhoneNumber());
+        return new PatchResponseUserDTO(user.getId(), user.getName(),user.getLastName(),user.getEmail());
     }
 }
 

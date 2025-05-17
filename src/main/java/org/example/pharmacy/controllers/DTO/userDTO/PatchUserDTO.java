@@ -1,47 +1,49 @@
 package org.example.pharmacy.controllers.DTO.userDTO;
 
-public class PatchUserDTO {
-    private String name;
-    private String lastName;
-    private String email;
-    private long phoneNumber;
+import org.openapitools.jackson.nullable.JsonNullable;
 
-    PatchUserDTO(String name, String lastName, String email, long phoneNumber) {
+public class PatchUserDTO {
+    private JsonNullable<String> name;
+    private JsonNullable<String> lastName;
+    private JsonNullable<String> email;
+   // private JsonNullable<Long> phoneNumber;
+
+    public PatchUserDTO(JsonNullable<String> name, JsonNullable<String> lastName, JsonNullable<String> email) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+       // this.phoneNumber = phoneNumber;
     }
 
-    public String getName() {
+    public JsonNullable<String> getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(JsonNullable<String> name) {
         this.name = name;
     }
 
-    public String getLastName() {
+    public JsonNullable<String> getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(JsonNullable<String> lastName) {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
+    public JsonNullable<String> getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(JsonNullable<String> email) {
         this.email = email;
     }
 
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+//    public JsonNullable<Long> getPhoneNumber() {
+//        return phoneNumber;
+//    }
+//
+//    public void setPhoneNumber(JsonNullable<Long> phoneNumber) {
+//        this.phoneNumber = phoneNumber;
+//    }
 }

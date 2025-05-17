@@ -7,12 +7,12 @@ public class PatchResponseUserDTO {
     private String email;
     private long phoneNumber;
 
-    public PatchResponseUserDTO(long id, String name, String lastName, String email, long phoneNumber) {
+    public PatchResponseUserDTO(long id, String name, String lastName, String email) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+       // this.phoneNumber = phoneNumber;
     }
 
     public long getId() {
@@ -47,11 +47,11 @@ public class PatchResponseUserDTO {
         this.email = email;
     }
 
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+//    public long getPhoneNumber() {
+//        return phoneNumber;
+//    }
+//
+//    public void setPhoneNumber(long phoneNumber) {
+//        this.phoneNumber = phoneNumber;
+//    }
 }
