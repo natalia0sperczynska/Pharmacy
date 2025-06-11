@@ -68,7 +68,7 @@ public class AuthService {
         }
         String token = jwtService.generateToken(authEntity);
 
-        return new LoginResponseDTO(token);
+        return new LoginResponseDTO(token,authEntity.getUser().getId());
     }
 
     private void validateRole(Role roleInput){
