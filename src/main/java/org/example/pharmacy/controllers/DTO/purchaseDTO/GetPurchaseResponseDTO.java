@@ -1,24 +1,25 @@
 package org.example.pharmacy.controllers.DTO.purchaseDTO;
 
-import org.example.pharmacy.controllers.DTO.medDTO.GetMedDTO;
 import org.example.pharmacy.controllers.DTO.userDTO.GetUserDTO;
 import org.example.pharmacy.types.PaymentMethods;
 
 import java.sql.Date;
+import java.util.List;
 
 public class GetPurchaseResponseDTO {
     private long id;
     private Date purchaseDate;
     private PaymentMethods paymentMethod;
     private GetUserDTO user;
-    private GetMedDTO med;
+    private List<PurchaseItemResponseDTO> items;
 
-    public GetPurchaseResponseDTO(long id, Date purchaseDate, PaymentMethods paymentMethod, GetUserDTO user, GetMedDTO med) {
+
+    public GetPurchaseResponseDTO(long id, Date purchaseDate, PaymentMethods paymentMethod, GetUserDTO user, List<PurchaseItemResponseDTO> items) {
         this.id = id;
         this.purchaseDate = purchaseDate;
         this.paymentMethod = paymentMethod;
         this.user = user;
-        this.med = med;
+        this.items = items;
     }
 
     public long getId() {
@@ -53,11 +54,11 @@ public class GetPurchaseResponseDTO {
         this.user = user;
     }
 
-    public GetMedDTO getMed() {
-        return med;
+    public List<PurchaseItemResponseDTO> getItems() {
+        return items;
     }
 
-    public void setMed(GetMedDTO med) {
-        this.med = med;
+    public void setItems(List<PurchaseItemResponseDTO> items) {
+        this.items = items;
     }
 }

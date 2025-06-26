@@ -1,9 +1,12 @@
 package org.example.pharmacy.controllers.DTO.purchaseDTO;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.example.pharmacy.types.PaymentMethods;
 
 import java.sql.Date;
+import java.util.List;
+
 public class AddPurchaseDTO {
     @NotNull
     private Date purchaseDate;
@@ -12,13 +15,14 @@ public class AddPurchaseDTO {
     @NotNull
     private Long userId;
     @NotNull
-    private Long medId;
+    @Size(min = 1, message = "At least one medicine is required")
+    private List<PurchaseItemDTO> items;
 
-    public AddPurchaseDTO(Date purchaseDate, PaymentMethods paymentMethod, Long userId, Long medId) {
+    public AddPurchaseDTO(Date purchaseDate, PaymentMethods paymentMethod, Long userId, List<PurchaseItemDTO> items) {
         this.purchaseDate = purchaseDate;
         this.paymentMethod = paymentMethod;
         this.userId = userId;
-        this.medId = medId;
+        this.items = items;
     }
 
     public Date getPurchaseDate() {
@@ -45,11 +49,11 @@ public class AddPurchaseDTO {
         this.userId = userId;
     }
 
-    public Long getMedId() {
-        return medId;
+    public List<PurchaseItemDTO> getItems() {
+        return items;
     }
 
-    public void setMedId(Long medId) {
-        this.medId = medId;
+    public void setItems(List<PurchaseItemDTO> items) {
+        this.items = items;
     }
 }

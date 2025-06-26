@@ -43,14 +43,14 @@ public class MedEntity {
     private int quantity;
 
     @OneToMany(mappedBy = "med",fetch = FetchType.LAZY)
-    private List<PurchaseEntity> purchases;
+    private List<PurchaseItemEntity> purchaseItems;
 
-    public List<PurchaseEntity> getPurchases() {
-        return purchases;
+    public List<PurchaseItemEntity> getPurchaseItems() {
+        return purchaseItems;
     }
 
-    public void setPurchases(List<PurchaseEntity> purchases) {
-        this.purchases = purchases;
+    public void setPurchaseItems(List<PurchaseItemEntity> purchases) {
+        this.purchaseItems = purchases;
     }
 
     public long getId() {

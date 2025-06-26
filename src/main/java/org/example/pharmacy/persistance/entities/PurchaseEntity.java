@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import org.example.pharmacy.types.PaymentMethods;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "purchases", schema = "pharmacy")
@@ -24,9 +26,8 @@ public class PurchaseEntity {
     @JoinColumn(name = "user_id",nullable = false)
     private UserEntity user;
 
-    @ManyToOne
-    @JoinColumn(name = "med_id",nullable = false)
-    private MedEntity med;
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PurchaseItemEntity> items = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -60,11 +61,11 @@ public class PurchaseEntity {
         this.user = user;
     }
 
-    public MedEntity getMed() {
-        return med;
+    public List<PurchaseItemEntity> getItems() {
+        return items;
     }
 
-    public void setMed(MedEntity med) {
-        this.med = med;
+    public void setItems(List<PurchaseItemEntity> items) {
+        this.items = items;
     }
 }

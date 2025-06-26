@@ -25,8 +25,8 @@ public class PurchaseController {
 
     @PostMapping()
     public ResponseEntity<AddPurchaseResponseDTO> create(@RequestBody @Validated AddPurchaseDTO purchase) {
-        var newPurchase = purchaseService.create(purchase);
-        return new ResponseEntity<AddPurchaseResponseDTO>(newPurchase, HttpStatus.CREATED);
+        AddPurchaseResponseDTO newPurchase = purchaseService.create(purchase);
+        return new ResponseEntity<>(newPurchase, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
