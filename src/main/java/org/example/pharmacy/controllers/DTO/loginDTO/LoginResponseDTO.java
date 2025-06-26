@@ -3,6 +3,7 @@ package org.example.pharmacy.controllers.DTO.loginDTO;
 public class LoginResponseDTO {
     private String token;
     private long userId;
+    private String username;
 
     public String getToken() {
         return token;
@@ -13,8 +14,18 @@ public class LoginResponseDTO {
         this.token = token;
     }
 
-    public LoginResponseDTO(String token, Long userId) {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public LoginResponseDTO(String token, Long userId, String username) {
         this.token = token;
         this.userId = userId;
+        this.username = username;
+
     }
 }

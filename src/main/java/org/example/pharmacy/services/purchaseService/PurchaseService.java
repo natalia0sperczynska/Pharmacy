@@ -5,6 +5,7 @@ import org.example.pharmacy.controllers.DTO.purchaseDTO.AddPurchaseDTO;
 import org.example.pharmacy.controllers.DTO.purchaseDTO.AddPurchaseResponseDTO;
 import org.example.pharmacy.controllers.DTO.purchaseDTO.GetPurchaseResponseDTO;
 import org.example.pharmacy.controllers.DTO.userDTO.GetUserDTO;
+import org.example.pharmacy.persistance.entities.AuthEntity;
 import org.example.pharmacy.persistance.entities.MedEntity;
 import org.example.pharmacy.persistance.entities.PurchaseEntity;
 import org.example.pharmacy.persistance.entities.UserEntity;
@@ -18,7 +19,9 @@ import org.example.pharmacy.services.purchaseService.error.MedNotFoundException;
 import org.example.pharmacy.services.purchaseService.error.PurchaseNotFoundException;
 import org.example.pharmacy.services.purchaseService.error.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -61,14 +64,21 @@ public class PurchaseService extends OwnershipService {
                 newPurchase.getMed().getId()
         );
     }
+    @PostAuthorize("hasRole('ADMIN') or this.isOwner(authentication.name,retrunObject.user.id )")
     public GetPurchaseResponseDTO getPurchaseById(long id) {
         PurchaseEntity purchaseEntity=  purchaseRepository.findById(id).orElseThrow(()-> PurchaseNotFoundException.create(id));
         return mapPurchase(purchaseEntity);
     }
 
-    public List<GetPurchaseResponseDTO> getAllPurchases() {
-        List<PurchaseEntity> purchaseEntity=  purchaseRepository.findAll();
-        return  purchaseEntity.stream().map(this::mapPurchase).collect(Collectors.toList());
+    @PreAuthorize("hasRole('ADMIN') or this.isOwner(authentication.name,#userId )")
+    public List<GetPurchaseResponseDTO> getAllPurchases(Long userId) {
+        List<PurchaseEntity> purchases;
+        if(userId==null){
+            purchases = purchaseRepository.findAll();
+        }else{
+            purchases=purchaseRepository.findByUserId(userId);
+        }
+        return purchases.stream().map(this::mapPurchase).collect(Collectors.toList());
 
     }
 

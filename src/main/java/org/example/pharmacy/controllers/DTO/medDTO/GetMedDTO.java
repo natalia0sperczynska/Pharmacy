@@ -2,7 +2,8 @@ package org.example.pharmacy.controllers.DTO.medDTO;
 
 import java.sql.Date;
 
-public class GetMedDTO {
+public class
+GetMedDTO {
     private long id;
     private long barcode;
     private String name;
