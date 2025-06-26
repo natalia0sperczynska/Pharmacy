@@ -25,13 +25,13 @@ public class MedsController {
     }
 
     @GetMapping()
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     public List<GetMedDTO> getAllMeds() {
         return medsService.getAll();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     public GetMedDTO getOne(@PathVariable long id) {
         return medsService.getOne(id);
     }

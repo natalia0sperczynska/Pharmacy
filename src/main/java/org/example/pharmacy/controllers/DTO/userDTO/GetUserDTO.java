@@ -5,12 +5,14 @@ public class GetUserDTO {
     private String name;
     private String lastName;
     private String email;
+    private long phoneNumber;
 
-    public GetUserDTO(long id, String name, String lastName, String email) {
+    public GetUserDTO(long id, String name, String lastName, String email,long phoneNumber) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
+        this.phoneNumber = phoneNumber;
     }
     public GetUserDTO() {
 
@@ -46,5 +48,13 @@ public class GetUserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

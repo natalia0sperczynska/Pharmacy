@@ -6,13 +6,13 @@ public class PatchUserDTO {
     private JsonNullable<String> name;
     private JsonNullable<String> lastName;
     private JsonNullable<String> email;
-   // private JsonNullable<Long> phoneNumber;
+    private JsonNullable<Long> phoneNumber;
 
-    public PatchUserDTO(JsonNullable<String> name, JsonNullable<String> lastName, JsonNullable<String> email) {
+    public PatchUserDTO(JsonNullable<String> name, JsonNullable<String> lastName, JsonNullable<String> email,JsonNullable<Long> phoneNumber) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-       // this.phoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 
     public JsonNullable<String> getName() {
@@ -39,11 +39,11 @@ public class PatchUserDTO {
         this.email = email;
     }
 
-//    public JsonNullable<Long> getPhoneNumber() {
-//        return phoneNumber;
-//    }
-//
-//    public void setPhoneNumber(JsonNullable<Long> phoneNumber) {
-//        this.phoneNumber = phoneNumber;
-//    }
+    public JsonNullable<Long> getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(JsonNullable<Long> phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

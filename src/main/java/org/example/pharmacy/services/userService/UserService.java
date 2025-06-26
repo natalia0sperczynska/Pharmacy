@@ -29,7 +29,7 @@ public class UserService extends OwnershipService {
 
     public GetUserDTO getOneUser(long id){
         var user = userRepository.findById(id).orElseThrow(()-> UserNotFoundException.create(id));
-        return new GetUserDTO(user.getId(),user.getName(),user.getLastName(), user.getEmail());
+        return new GetUserDTO(user.getId(),user.getName(),user.getLastName(), user.getEmail(),user.getPhoneNumber());
     }
 
     public CreateUserResponseDTO create(UserEntity userEntity){
@@ -39,7 +39,7 @@ public class UserService extends OwnershipService {
     public GetUserDTO getUserByUsername(String username){
         AuthEntity authEntity = authRepository.findByUsername(username).orElseThrow(()-> UserWithThisUsernameNotFoundException.create(username));
         UserEntity user = authEntity.getUser();
-        return new GetUserDTO(user.getId(),user.getName(),user.getLastName(), user.getEmail());
+        return new GetUserDTO(user.getId(),user.getName(),user.getLastName(), user.getEmail(),user.getPhoneNumber());
     }
 
     @PreAuthorize("hasRole('ADMIN') or isAuthenticated() and this.isOwner(authentication.name,#id)")
@@ -49,9 +49,10 @@ public class UserService extends OwnershipService {
             patchUserDTO.getName().ifPresent(user::setName);
             patchUserDTO.getLastName().ifPresent(user::setLastName);
             patchUserDTO.getEmail().ifPresent(user::setEmail);
+            patchUserDTO.getPhoneNumber().ifPresent(user::setPhoneNumber);
 
         userRepository.save(user);
-        return new PatchResponseUserDTO(user.getId(), user.getName(),user.getLastName(),user.getEmail());
+        return new PatchResponseUserDTO(user.getId(), user.getName(),user.getLastName(),user.getEmail(),user.getPhoneNumber());
     }
 }
 

@@ -83,7 +83,7 @@ public class PurchaseService extends OwnershipService {
     }
 
     private GetPurchaseResponseDTO mapPurchase(PurchaseEntity purchaseEntity) {
-        GetUserDTO user = new GetUserDTO(purchaseEntity.getUser().getId(),purchaseEntity.getUser().getName(),purchaseEntity.getUser().getLastName(),purchaseEntity.getUser().getEmail());
+        GetUserDTO user = new GetUserDTO(purchaseEntity.getUser().getId(),purchaseEntity.getUser().getName(),purchaseEntity.getUser().getLastName(),purchaseEntity.getUser().getEmail(),purchaseEntity.getUser().getPhoneNumber());
         GetMedDTO med = new GetMedDTO(purchaseEntity.getMed().getId(),purchaseEntity.getMed().getBarcode(),purchaseEntity.getMed().getName(),purchaseEntity.getMed().getDose(),purchaseEntity.getMed().getCompany_name(),purchaseEntity.getMed().getPrice(),purchaseEntity.getMed().getForm(),purchaseEntity.getMed().getExpiry_date(),purchaseEntity.getMed().getQuantity());
         return new GetPurchaseResponseDTO(purchaseEntity.getId(),purchaseEntity.getPurchaseDate(),purchaseEntity.getPaymentMethod(),user,med);
     }

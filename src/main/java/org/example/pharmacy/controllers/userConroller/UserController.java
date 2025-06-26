@@ -36,7 +36,7 @@ public class UserController {
 //        return new userService.create(user);
 //    }
 //    @GetMapping("/me")
-//    public UserResponseDTO getMe(Principal principal){
+//    public UserResponseDTO getMe(Principal p rincipal){
 //        return new UserResponseDTO(1, principal.getName());
 //    }
 
